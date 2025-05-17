@@ -1,4 +1,3 @@
-
 #include <fstream>
 #include <iostream>
 #include <gl/glut.h>
@@ -209,5 +208,3 @@ void RGBpixmap::readBMPFile(char* fname)
 	return;
 	//success
 }
-
-

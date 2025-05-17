@@ -1,0 +1,211 @@
+
+//void draw2() {
+//    double t = glutGet(GLUT_ELAPSED_TIME) / 1000.0;
+//    double a = t * 90.0;
+//
+//    TIME = t;
+//
+//    // Current plane position
+//    float planeX = 0; // Plane is at origin X
+//    float planeY = 1; // Plane is at Y=1
+//
+//    ///Plane
+//    if (rotX > 11)rotX = 11;
+//    if (rotX < -11)rotX = -11;
+//    if (rotZ > 10)rotZ = 10;
+//    if (rotZ < -15)rotZ = -15;
+//
+//    glPushMatrix();
+//    glTranslated(0, 1, 0);
+//    glRotated(90, 0, 1, 0);
+//    glRotated(5, 0, 0, 1);
+//    glRotated(rotX, 1, 0, 0);
+//    glRotated(rotY, 0, 1, 0);
+//    glRotated(rotZ, 0, 0, 1);
+//
+//    glScaled(0.4, 0.4, 0.4);
+//    plane();
+//    glPopMatrix();
+//
+//    ///Environment
+//    if (tX >= 4.1)tX = 4.1;
+//    if (tX <= -4.1)tX = -4.1;
+//    if (tY > 0.1)tY = 0.1;
+//    if (tY < -15)tY = -15;
+//
+//    // Check for collisions and draw environments with their respective toruses
+//
+//    // First environment
+//    if (torusActive[2] && checkThroughRing(planeX - tX, planeY - tY, torusPosX[2], torusPosY[2], tZ)) {
+//        score += 10;
+//        torusActive[2] = false;
+//    }
+//
+//    glPushMatrix();
+//    glTranslated(tX, tY, tZ);
+//    if (!torusActive[2]) {
+//        // Draw environment without torus if collected
+//        int originalTorusIndex = 2;
+//        int tempIndex = originalTorusIndex;
+//        torusActive[originalTorusIndex] = false;
+//        environment(tempIndex);
+//        torusActive[originalTorusIndex] = false;
+//    }
+//    else {
+//        environment(2);
+//    }
+//    glPopMatrix();
+//
+//    // Second environment
+//    if (torusActive[3] && checkThroughRing(planeX - tX, planeY - tY, torusPosX[3], torusPosY[3], tZ2)) {
+//        score += 10;
+//        torusActive[3] = false;
+//    }
+//
+//    glPushMatrix();
+//    glTranslated(tX, tY, tZ2);
+//    if (!torusActive[3]) {
+//        // Draw environment without torus if collected
+//        int originalTorusIndex = 3;
+//        int tempIndex = originalTorusIndex;
+//        torusActive[originalTorusIndex] = false;
+//        environment(tempIndex);
+//        torusActive[originalTorusIndex] = false;
+//    }
+//    else {
+//        environment(3);
+//    }
+//    glPopMatrix();
+//
+//    // Third environment
+//    if (torusActive[1] && checkThroughRing(planeX - tX, planeY - tY, torusPosX[1], torusPosY[1], tZ3)) {
+//        score += 10;
+//        torusActive[1] = false;
+//    }
+//
+//    glPushMatrix();
+//    glTranslated(tX, tY, tZ3);
+//    if (!torusActive[1]) {
+//        // Draw environment without torus if collected
+//        int originalTorusIndex = 1;
+//        int tempIndex = originalTorusIndex;
+//        torusActive[originalTorusIndex] = false;
+//        environment(tempIndex);
+//        torusActive[originalTorusIndex] = false;
+//    }
+//    else {
+//        environment(1);
+//    }
+//    glPopMatrix();
+//
+//    // Fourth environment
+//    if (torusActive[5] && checkThroughRing(planeX - tX, planeY - tY, torusPosX[5], torusPosY[5], tZ4)) {
+//        score += 10;
+//        torusActive[5] = false;
+//    }
+//
+//    glPushMatrix();
+//    glTranslated(tX, tY, tZ4);
+//    if (!torusActive[5]) {
+//        // Draw environment without torus if collected
+//        int originalTorusIndex = 5;
+//        int tempIndex = originalTorusIndex;
+//        torusActive[originalTorusIndex] = false;
+//        environment(tempIndex);
+//        torusActive[originalTorusIndex] = false;
+//    }
+//    else {
+//        environment(5);
+//    }
+//    glPopMatrix();
+//
+//    // Fifth environment
+//    if (torusActive[4] && checkThroughRing(planeX - tX, planeY - tY, torusPosX[4], torusPosY[4], tZ5)) {
+//        score += 10;
+//        torusActive[4] = false;
+//    }
+//
+//    glPushMatrix();
+//    glTranslated(tX, tY, tZ5);
+//    if (!torusActive[4]) {
+//        // Draw environment without torus if collected
+//        int originalTorusIndex = 4;
+//        int tempIndex = originalTorusIndex;
+//        torusActive[originalTorusIndex] = false;
+//        environment(tempIndex);
+//        torusActive[originalTorusIndex] = false;
+//    }
+//    else {
+//        environment(4);
+//    }
+//    glPopMatrix();
+//
+//    // Sixth environment
+//    if (torusActive[2] && checkThroughRing(planeX - tX, planeY - tY, torusPosX[2], torusPosY[2], tZ6)) {
+//        score += 10;
+//        torusActive[2] = false;
+//    }
+//
+//    glPushMatrix();
+//    glTranslated(tX, tY, tZ6);
+//    if (!torusActive[2]) {
+//        // Draw environment without torus if collected
+//        int originalTorusIndex = 2;
+//        int tempIndex = originalTorusIndex;
+//        torusActive[originalTorusIndex] = false;
+//        environment(tempIndex);
+//        torusActive[originalTorusIndex] = false;
+//    }
+//    else {
+//        environment(2);
+//    }
+//    glPopMatrix();
+//
+//    // Move environments and reset when they go offscreen
+//    tZ += speed;
+//    tZ1 += speed;
+//    tZ2 += speed;
+//    tZ3 += speed;
+//    tZ4 += speed;
+//    tZ5 += speed;
+//    tZ6 += speed;
+//
+//    if (tZ >= 20) {
+//        tZ = -110;
+//        torusActive[2] = true; // Reset torus when environment recycles
+//    }
+//    if (tZ1 >= 20) {
+//        tZ1 = -110;
+//        // No torus in environment 1 based on original code
+//    }
+//    if (tZ2 >= 20) {
+//        tZ2 = -110;
+//        torusActive[3] = true;
+//    }
+//    if (tZ3 >= 20) {
+//        tZ3 = -110;
+//        torusActive[1] = true;
+//    }
+//    if (tZ4 >= 20) {
+//        tZ4 = -110;
+//        torusActive[5] = true;
+//    }
+//    if (tZ5 >= 20) {
+//        tZ5 = -110;
+//        torusActive[4] = true;
+//    }
+//    if (tZ6 >= 20) {
+//        tZ6 = -110;
+//        torusActive[2] = true; // Same as first environment
+//    }
+//
+//    if (rotX > 0)rotX -= angleBackFrac;
+//    if (rotX < 0)rotX += angleBackFrac;
+//    if (rotY > 0)rotY -= angleBackFrac;
+//    if (rotY < 0)rotY += angleBackFrac;
+//    if (rotZ > 0)rotZ -= angleBackFrac;
+//    if (rotZ < 0)rotZ += angleBackFrac;
+//
+//    speed += 0.0002;
+//    if (speed >= 0.7)speed = 0.7;
+//}
