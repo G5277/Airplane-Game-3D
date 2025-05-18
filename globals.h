@@ -19,7 +19,7 @@ extern float r[], g[], b[];
 extern int TIME;
 extern bool START;
 extern float torusPosX[7], torusPosY[7];
-extern bool isrotate;
+extern bool rot;
 
 #endif
 #pragma once

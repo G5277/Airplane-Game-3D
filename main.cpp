@@ -1,4 +1,4 @@
-﻿#include <windows.h>
+﻿#include<Windows.h>
 #include <gl/glut.h>
 #include <stdlib.h>
 #include <cmath>
@@ -12,9 +12,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <thread>
-#include <chrono>
-#include <atomic>
 
 using namespace std;
 
@@ -56,9 +53,6 @@ void read_file()
 
     if (file) {
         std::cout << "Character read: " << ch << "\n";
-    }
-    else {
-        ch = 'c';
     }
 
     file.close();
@@ -175,17 +169,26 @@ void draw() {
     handleEnvironment(5, tZ4, tZ4);
     handleEnvironment(4, tZ5, tZ5);
     handleEnvironment(2, tZ6, tZ6);
-}
 
-void drawBitmapText(char* str, float x, float y, float z)
-{
-    char* c;
-    glRasterPos3f(x, y + 8, z);
+    if (tZ >= 20)tZ = -110;
+    if (tZ1 >= 20)tZ1 = -110;
+    if (tZ2 >= 20)tZ2 = -110;
+    if (tZ3 >= 20)tZ3 = -110;
+    if (tZ4 >= 20)tZ4 = -110;
+    if (tZ5 >= 20)tZ5 = -110;
+    if (tZ6 >= 20)tZ6 = -110;
 
-    for (c = str; *c != '\0'; c++)
-    {
-        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10, *c);
-    }
+    if (rotX > 0)rotX -= angleBackFrac;
+    if (rotX < 0)rotX += angleBackFrac;
+    if (rotY > 0)rotY -= angleBackFrac;
+    if (rotY < 0)rotY += angleBackFrac;
+    if (rotZ > 0)rotZ -= angleBackFrac;
+    if (rotZ < 0)rotZ += angleBackFrac;
+
+
+    speed += 0.0002;
+    if (speed >= 0.7)speed = 0.7;
+
 }
 
 void drawStrokeText(const char* str, int x, int y, int z)
@@ -234,7 +237,7 @@ static void display(void)
     const double t = glutGet(GLUT_ELAPSED_TIME) / 1000.0;
     double a = t * 90.0;
     double aa = a;
-    if (!isrotate) {
+    if (!rot) {
         a = 0;
     }
 
@@ -337,7 +340,7 @@ const GLfloat light_ambient[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 const GLfloat light_diffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 const GLfloat light_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 const GLfloat light_position[] = { 2.0f, 5.0f, 5.0f, 0.0f };
-//
+
 const GLfloat mat_ambient[] = { 0.7f, 0.7f, 0.7f, 1.0f };
 const GLfloat mat_diffuse[] = { 0.8f, 0.8f, 0.8f, 1.0f };
 const GLfloat mat_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
@@ -355,14 +358,10 @@ int main(int argc, char* argv[])
 
     glutReshapeFunc(resize);
     glutDisplayFunc(display);
-    read_file();
-    //glutKeyboardFunc(key);
+    glutKeyboardFunc(key);
     glutIdleFunc(idle);
 
-    glClearColor(0.5f, 0.7f, 1.0f, 1.0f);
-
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
+    glClearColor(0.5f, 0.7f, 1.0f, 1.0f); // sky color
 
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
@@ -386,3 +385,100 @@ int main(int argc, char* argv[])
 
     return EXIT_SUCCESS;
 }
+
+
+//void read_file()
+//{
+//    std::cout << "enter";
+//    if (START == false)
+//    {
+//        glutKeyboardFunc(key);
+//    }
+//
+//    std::ifstream file("D:/key_events.txt");
+//    if (!file) {
+//        std::cerr << "Failed to open the file.\n";
+//        return;
+//    }
+//    char ch;
+//    file.get(ch);
+//
+//    if (file) {
+//        std::cout << "Character read: " << ch << "\n";
+//    }
+//
+//    file.close();
+//
+//    float frac = 0.3;
+//    float rotFrac = 0.2;
+//
+//    switch (ch)
+//    {
+//    case 27:
+//    case 'q':
+//        exit(0);
+//        break;
+//    case 'r':
+//        rot = true;
+//        break;
+//    case 't':
+//        rot = false;
+//        break;
+//    case 'z':
+//        zoom += 0.05;
+//        break;
+//    case 'Z':
+//        zoom -= 0.05;
+//    case 'w':
+//        tY -= frac;
+//        rotZ += rotFrac;
+//        break;
+//    case 's':
+//        tY += frac;
+//        rotZ -= rotFrac;
+//        break;
+//    case 'a':
+//        tX += frac;
+//        rotX -= rotFrac * 3;
+//        rotY += rotFrac / 2;
+//        break;
+//    case 'd':
+//        tX -= frac;
+//        rotX += rotFrac * 3;
+//        rotY -= rotFrac / 2;
+//        break;
+//    case 'y':
+//        rotX -= rotFrac;
+//        break;
+//    case 'h':
+//        rotX += rotFrac;
+//        break;
+//    case 'i':
+//        rotY += rotFrac;
+//        break;
+//    case 'j':
+//        rotY -= rotFrac;
+//        break;
+//    case 'g':
+//        START = true;
+//        break;
+//    case 'm':
+//        START = false;
+//        break;
+//    case 'o':
+//        cosX -= frac * cos(rotX * rad);
+//        cosY += frac * cos(rotY * rad);
+//        cosZ -= frac * cos(rotZ * rad);
+//        //std::cout<<"Front : "<<cosX<<" "<<cosY<<" "<<cosZ<<std::endl;
+//        break;
+//    case 'l':
+//        cosX += frac * cos(rotX * rad);
+//        cosY -= frac * cos(rotY * rad);
+//        cosZ += frac * cos(rotZ * rad);
+//        //cout<<"Back : "<<cosX<<" "<<cosY<<" "<<cosZ<<endl;
+//        break;
+//
+//    }
+//    glutPostRedisplay();
+//}
+

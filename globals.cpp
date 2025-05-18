@@ -1,7 +1,7 @@
 #include "globals.h"
-#include "RGBpixmap.h"
 
-RGBpixmap pix[6];
+#define rad (3.1416/180)
+#define EN_SIZE 20
 
 int score = 0;
 bool torusActive[7] = { true, true, true, true, true, true, true };
@@ -13,7 +13,7 @@ float tX = 0, tY = 0, tZ = -8, rX = 0, rY = 0, rZ = 4;
 float tZ1 = -20, tZ2 = -40, tZ3 = -60, tZ4 = -80, tZ5 = -100, tZ6 = -120;
 
 float rotX = 0, rotY = 0, rotZ = 0;
-float cosX = 0, cosY = 1, cosZ = 0;
+float cosX = 0, cosY = 1, cosZ = 2;
 float angle = 0;
 
 float xEye = 0.0f, yEye = 5.0f, zEye = 30.0f;
@@ -34,4 +34,4 @@ bool START = false;
 float torusPosX[7] = { 1, -2, 3, -4, -2, 0, 2 };
 float torusPosY[7] = { 2, 3, 10, 6, 7, 4, 1 };
 
-bool isrotate = false;
+bool rot = false;
